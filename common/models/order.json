@@ -1,0 +1,44 @@
+{
+  "name": "Order",
+  "plural": "orders",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true,
+    "postgresql": {
+      "foreignKeys": {
+        "fk_order_productId": {
+          "name": "fk_order_productId",
+          "entity": "Product",
+          "entityKey": "id",
+          "foreignKey": "productId"
+        }
+      }
+    }
+  },
+  "properties": {
+    "quantity": {
+      "type": "number",
+      "required": true
+    },
+    "date": {
+      "type": "date",
+      "required": true
+    },
+    "productId": {
+      "type": "number",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {
+    "product": {
+      "type": "belongsTo",
+      "model": "Product",
+      "foreignKey": "productId"
+    }
+  },
+  "acls": []
+  ,
+  "methods": {}
+}

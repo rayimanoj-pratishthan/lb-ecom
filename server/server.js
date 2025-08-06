@@ -7,7 +7,7 @@
 
 const loopback = require('loopback');
 const boot = require('loopback-boot');
-
+const swaggerUi = require('swagger-ui-express');
 const app = module.exports = loopback();
 
 app.start = function() {
@@ -25,10 +25,17 @@ app.start = function() {
 
 // Bootstrap the application, configure models, datasources and middleware.
 // Sub-apps like REST API are mounted via boot scripts.
-boot(app, __dirname, function(err) {
+boot(app, __dirname, function (err) {
   if (err) throw err;
 
-  // start the server if `$ node server.js`
-  if (require.main === module)
-    app.start();
+  // Serve Swagger UI at /docs using swagger-ui-express
+  const swaggerDocumentUrl = 'http://localhost:3000/explorer/swagger.json';
+
+  app.use('/docs', swaggerUi.serve, swaggerUi.setup(null, {
+    swaggerUrl: swaggerDocumentUrl,
+    explorer: true,
+    customSiteTitle: "My LoopBack API Docs"
+  }));
+
+  if (require.main === module) app.start();
 });

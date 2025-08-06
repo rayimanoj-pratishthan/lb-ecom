@@ -18,10 +18,20 @@
     "category": {
       "type": "string",
       "required": true
+    },
+    "quantity": {
+      "type": "number",
+      "default": 1
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "orders": {
+      "type": "hasMany",
+      "model": "Order",
+      "foreignKey": "productId"
+    }
+  },
   "acls": [],
   "methods": {}
 }
